@@ -5,11 +5,11 @@ export default class ReviewsDAO{
     //here we will try to request a post method
     //for user to add reviews in the front end
     try{
-    const restaurantID = req.body.restaurantid
+    const restaurantId = req.body.restaurant_id
     const review = req.body.text
     const userInfo = {
-      name = req.body.name,
-      _id = req.body.user_id
+      name : req.body.name,
+      _id : req.body.user_id
     }
     //above variables are requests for thier respective ID's
     const date = new date()
@@ -38,7 +38,7 @@ export default class ReviewsDAO{
       //restaurant and user
       const reviewResponse = await ReviewDAO.updateReview(
         reviewID,
-        req.body.user_id
+        req.body.user_id,
         text,
         date,
       )
@@ -52,9 +52,12 @@ export default class ReviewsDAO{
           "unable to update review = user may not be original poster",
         )
       }
+      res.json({ status: "success" })
+    }catch (e) {
+      res.status(500).json({ error: e.message })
     }
   }
-  static async apiDeleteREview(req, res, next){
+  static async apiDeleteReview(req, res, next){
     try{
       const reviewID = req.query.review
       const userID = req.body.user_id
@@ -68,7 +71,7 @@ export default class ReviewsDAO{
       res.json({status:"success"})
     }
     catch(e){
-      res.status(500).json({e.message})
+      res.status(500).json({error: e.message})
     }
   }
 
