@@ -2,6 +2,7 @@ import RestaurantsDAO from "../dao/restaurantsDAO.js"
 
 export default class restaurantscontroller{
   static async apiGetRestaurants(req,res,next){
+    //req here fetches data from router.route method in restaurant.route.js file
     const restaurantsPerPage = req.query.resturantsPerPage ? parseInt(req.query.restaurantsPerPage,10):20
     const page = req.query.page ? parseInt(req.query.page,10):0
 
