@@ -16,8 +16,8 @@ export default class ReviewsController{
     const ReviewResponse = await ReviewsDAO.addReview(
       //addReview function is defined in ReviewsDAO.js file
       restaurantId,
-      review,
       userInfo,
+      review,
       date,
     )
     //once we get details of the restaurants and user
@@ -30,20 +30,20 @@ export default class ReviewsController{
   }
   static async apiUpdateReview(req, res, next){
     try{
-      const text = req.body.text
       const reviewID = req.body.review_id
-      const date = new date()
+      const text = req.body.text
+      const date = new Date()
       //similar to the apiPostReview, we will update
       //reviews in a similar way by requesting details of
       //restaurant and user
-      const reviewResponse = await ReviewDAO.updateReview(
+      const reviewResponse = await ReviewsDAO.updateReview(
         reviewID,
         req.body.user_id,
         text,
         date,
       )
       //finally posting the updated review by calling updateReview
-      var {error} = ReviewResponse
+      var {error} = reviewResponse
       if(error){
         res.status(400).json({error})
       }
@@ -59,14 +59,14 @@ export default class ReviewsController{
   }
   static async apiDeleteReview(req, res, next){
     try{
-      const reviewID = req.query.review
-      const userID = req.body.user_id
-      console.log(reviewID)
+      const reviewId = req.query.id
+      const userId = req.body.user_id
+      console.log(reviewId)
       //request for the review query and user info
       //and delete the review from the database
-      const reviewResponse = await ReviewDAO.deleteReview(
-        reviewID,
-        userID,
+      const reviewResponse = await ReviewsDAO.deleteReview(
+        reviewId,
+        userId,
       )
       res.json({status:"success"})
     }

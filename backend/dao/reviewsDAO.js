@@ -9,7 +9,7 @@ export default class ReviewsDAO {
       return
     }
     try{
-      reviews = await conn.db(process.env.RESTREVIEWS_NS).collection("reviews")
+      reviews = await conn.db(process.env.RESTAURANTS_NS).collection("reviews")
       // connecting to the database using environment variables
     }
     catch(e){
@@ -23,13 +23,14 @@ export default class ReviewsDAO {
       date: date,
       text: review,
       restaurant_id: ObjectId(restaurantId),}
+
       return await reviews.insertOne(reviewDoc)
     }catch(e){
       console.error(`unable to post review ${e}`)
       return{error:e}
     }
   }
-  static async updateReview(reviewID, userID, date, text){
+  static async updateReview(reviewID, userID, text, date){
     try{
       const updateResponse = await reviews.updateOne(
         {user_id:userID, _id: ObjectId(reviewID)},
@@ -41,11 +42,11 @@ export default class ReviewsDAO {
       return{error:e}
     }
   }
-  static async deleteReview(reviewID, userID){
+  static async deleteReview(reviewId, userId){
     try{
-      const deleteResponse = await reviews.deleteOne(
-        {_id:userID, review:reviewID},
-      )
+      const deleteResponse = await reviews.deleteOne({
+        _id:ObjectId(reviewId), user_id:userId,
+      })
       return deleteResponse
     }catch(e){
       console.error(`Unable to update reviews ${e}`)
