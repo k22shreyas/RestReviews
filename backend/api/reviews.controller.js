@@ -1,6 +1,6 @@
-import RestaurantsDAO from "../dao/restaurantsDAO.js"
+import ReviewsDAO from "../dao/reviewsDAO.js"
 
-export default class ReviewsDAO{
+export default class ReviewsController{
   static async apiPostReview(req, res, next){
     //here we will try to request a post method
     //for user to add reviews in the front end
@@ -12,11 +12,11 @@ export default class ReviewsDAO{
       _id : req.body.user_id
     }
     //above variables are requests for thier respective ID's
-    const date = new date()
+    const date = new Date()
     const ReviewResponse = await ReviewsDAO.addReview(
       //addReview function is defined in ReviewsDAO.js file
-      restaurantID,
-      reviews,
+      restaurantId,
+      review,
       userInfo,
       date,
     )

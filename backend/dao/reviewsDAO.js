@@ -9,7 +9,7 @@ export default class ReviewsDAO {
       return
     }
     try{
-      reviews = await conn.db(process.env.RESTAURANTS_NS).collection("reviews")
+      reviews = await conn.db(process.env.RESTREVIEWS_NS).collection("reviews")
       // connecting to the database using environment variables
     }
     catch(e){
@@ -20,8 +20,8 @@ export default class ReviewsDAO {
     try{
       const reviewDoc = { name:user.name,
       user_id: user._id,
-      text: review,
       date: date,
+      text: review,
       restaurant_id: ObjectId(restaurantId),}
       return await reviews.insertOne(reviewDoc)
     }catch(e){
