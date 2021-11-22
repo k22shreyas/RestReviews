@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AddReview from "./components/add-review";
@@ -26,9 +26,10 @@ function App() {
         </a>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
+            <BrowserRouter>
             <Link to={"/restaurants"} className="nav-link">
               Restaurants
-            </Link>
+            </Link></BrowserRouter>
           </li>
           <li className="nav-item" >
             { user ? (
@@ -36,9 +37,11 @@ function App() {
                 Logout {user.name}
               </button>
             ) : (            
+            <BrowserRouter>
             <Link to={"/login"} className="nav-link">
               Login
             </Link>
+            </BrowserRouter>
             )}
 
           </li>
@@ -46,6 +49,7 @@ function App() {
       </nav>
 
       <div className="container mt-3">
+      <BrowserRouter>
         <Switch>
           <Route exact path={["/", "/restaurants"]} component={RestaurantsList} />
           <Route 
@@ -67,6 +71,7 @@ function App() {
             )}
           />
         </Switch>
+        </BrowserRouter>
       </div>
     </div>
   );
